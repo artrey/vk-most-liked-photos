@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import { connect } from 'react-redux';
 import './App.css';
 
 class App extends Component {
@@ -7,15 +7,25 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
+          <h1 className="App-title">Мой топ фото</h1>
         </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
+        <p className="App-title">Место для фото</p>
+        <p>It's me: {this.props.username}</p>
+        <p>
+          У тебя {this.props.photos.length} за {this.props.year} год
         </p>
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = store => {
+  console.log(store);
+  return {
+    username: store.user.name,
+    photos: store.page.photos,
+    year: store.page.year,
+  };
+};
+
+export default connect(mapStateToProps)(App);
