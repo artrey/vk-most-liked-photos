@@ -25,22 +25,20 @@ export class Page extends React.Component {
     }
   };
 
-  renderButtons = (start, end) => {
-    const len = end - start + 1;
-    return [...Array(len).keys()]
-      .reverse()
-      .map(i => i + start)
-      .map(year => (
-        <button key={year} className="btn" onClick={this.onBtnClick}>
-          {year}
-        </button>
-      ));
+  renderButtons = () => {
+    const { years } = this.props;
+
+    return years.map(year => (
+      <button key={year} className="btn" onClick={this.onBtnClick}>
+        {year}
+      </button>
+    ));
   };
 
   render() {
     return (
       <div className="ib page">
-        {this.renderButtons(2008, 2018)}
+        {this.renderButtons()}
         <h3>{this.props.year} год</h3>
         {this.renderTemplate()}
       </div>
@@ -49,6 +47,7 @@ export class Page extends React.Component {
 }
 
 Page.propTypes = {
+  years: PropTypes.array.isRequired,
   year: PropTypes.number.isRequired,
   photos: PropTypes.array.isRequired,
   isFetching: PropTypes.bool.isRequired,
